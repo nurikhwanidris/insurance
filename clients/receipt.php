@@ -129,7 +129,7 @@ if (isset($_POST['submit'])) {
             </div>
         </div>
         <?php if (isset($_POST['submit'])) { ?>
-            <div class="row my-4 print-none">
+            <div class="row my-4 d-print-none">
                 <div class="alert <?= $alert; ?> mx-auto" role="alert">
                     <?= $message; ?>
                 </div>

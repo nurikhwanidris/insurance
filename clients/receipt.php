@@ -102,7 +102,7 @@ if (isset($_POST['submit'])) {
                             </div>
                             <div class="col-md-4 mx-auto">
                                 <div class="row">
-                                    <p class="m-0">Receipt No : <b> ET<?= date('Ym') . '-' . $id; ?></b></p>
+                                    <p class="m-0">Receipt No : <b> ET/INS-<?= date('Ym') . '-' . $id; ?></b></p>
                                     <p class="m-0"><small>CO. REG. 1074485-W KPL/LN: 7644 | MA4686</small></p>
                                     <p class="m-0"><small>GST001952911360 | MOF : K22173423761661323</small></p>
                                     <p class="m-0"><small>No. 243 B, Tingkat 2,</small></p>

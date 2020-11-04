@@ -134,6 +134,7 @@ $row = mysqli_fetch_array($result);
                                     <div class="col-md-12 mx-auto ">
                                         <button name="submit" type="submit" class="btn btn-success btn-md">Submit</button>
                                         <button name="reset" type="reset" class="btn btn-danger btn-md">Reset</button>
+                                        <a href="home" class="btn btn-sm btn-default">Back</a>
                                     </div>
                                 </div>
                             </form>

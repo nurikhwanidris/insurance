@@ -4,14 +4,14 @@
 include('../core/dbconn.php');
 
 // Get data from POST.
-$name = mysqli_real_escape_string($conn, $_POST['name']);
-$amountTxt = mysqli_real_escape_string($conn, $_POST['amountTxt']);
+$name = strtolower(mysqli_real_escape_string($conn, $_POST['name']));
+$amountTxt = strtolower(mysqli_real_escape_string($conn, $_POST['amountTxt']));
 $amountDigits = mysqli_real_escape_string($conn, $_POST['amountDigits']);
-$paymentFor = mysqli_real_escape_string($conn, $_POST['paymentFor']);
+$paymentFor = strtolower(mysqli_real_escape_string($conn, $_POST['paymentFor']));
 $paymentType = mysqli_real_escape_string($conn, $_POST['paymentType']);
 $dateIssued = mysqli_real_escape_string($conn, $_POST['dateIssued']);
-$issuedBy = mysqli_real_escape_string($conn, $_POST['issuedBy']);
-$designation = mysqli_real_escape_string($conn, $_POST['designation']);
+$issuedBy = strtolower(mysqli_real_escape_string($conn, $_POST['issuedBy']));
+$designation = strtolower(mysqli_real_escape_string($conn, $_POST['designation']));
 
 
 ?>
@@ -55,17 +55,17 @@ $designation = mysqli_real_escape_string($conn, $_POST['designation']);
                         <h5 class="my-3 p-3">Official Receipt</h5>
                         <div class="row px-3">
                             <div class="col-md-8">
-                                <p class="border-bottom">Mr/Mrs/Ms : <b><?= $name; ?></b></p>
+                                <p class="border-bottom">Mr/Mrs/Ms : <b><?= ucwords($name); ?></b></p>
                                 <div class="row">
                                     <div class="col-md-8">
-                                        <p class="border-bottom ">Received the Sum of : <b><?= $amountTxt; ?></b></p>
+                                        <p class="border-bottom ">Received the Sum of : <b><?= ucwords($amountTxt); ?></b></p>
                                     </div>
                                     <div class="col-md-4 text-center">
                                         <p class="border"><b>RM<?= $amountDigits; ?></b></p>
                                     </div>
                                 </div>
                                 <p class="border-bottom">Payment by : <b><?= $paymentType; ?></b></p>
-                                <p class="border-bottom">Being Payment of : <b><?= $paymentFor; ?></b></p>
+                                <p class="border-bottom">Being Payment of : <b><?= ucwords($paymentFor); ?></b></p>
                             </div>
                             <div class="col-md-4 mx-auto">
                                 <div class="row">
@@ -80,8 +80,8 @@ $designation = mysqli_real_escape_string($conn, $_POST['designation']);
                                 <div class="row">
                                     <p>
                                         <small class="border-bottom">Date : <b><?= $dateIssued; ?></b></small><br>
-                                        <small class="border-bottom">Issued By : <b><?= $issuedBy; ?></b></small><br>
-                                        <small class="border-bottom">Designation : <b><?= $designation; ?></small></b>
+                                        <small class="border-bottom">Issued By : <b><?= ucwords($issuedBy); ?></b></small><br>
+                                        <small class="border-bottom">Designation : <b><?= ucwords($designation); ?></small></b>
                                     </p>
                                 </div>
                             </div>

@@ -23,25 +23,25 @@ $row = mysqli_fetch_array($result);
 $id = str_pad($row['id'] + 1, 4, '00000', STR_PAD_LEFT);
 
 // Save to database
-// if (isset($_POST['submit'])) {
-//     $ic = mysqli_real_escape_string($conn, $_POST['ic']);
-//     $amountTxt = ucwords(mysqli_real_escape_string($conn, $_POST['amountTxt']));
-//     $amountDigits = mysqli_real_escape_string($conn, $_POST['amountDigits']);
-//     $paymentFor = ucwords(mysqli_real_escape_string($conn, $_POST['paymentFor']));
-//     $paymentType = ucwords(mysqli_real_escape_string($conn, $_POST['paymentType']));
-//     $dateIssued = mysqli_real_escape_string($conn, $_POST['dateIssued']);
-//     $issuedBy = ucwords(mysqli_real_escape_string($conn, $_POST['issuedBy']));
+if (isset($_POST['submit'])) {
+    $ic = mysqli_real_escape_string($conn, $_POST['ic']);
+    $amountTxt = ucwords(mysqli_real_escape_string($conn, $_POST['amountTxt']));
+    $amountDigits = mysqli_real_escape_string($conn, $_POST['amountDigits']);
+    $paymentFor = ucwords(mysqli_real_escape_string($conn, $_POST['paymentFor']));
+    $paymentType = ucwords(mysqli_real_escape_string($conn, $_POST['paymentType']));
+    $dateIssued = mysqli_real_escape_string($conn, $_POST['dateIssued']);
+    $issuedBy = ucwords(mysqli_real_escape_string($conn, $_POST['issuedBy']));
 
-//     $sql = "INSERT INTO receipt (clientIC, amountTxt, amountDigits, paymentType, paymentFor, issuedAt, issuedBy, status) VALUES ('$ic','$amountTxt','$amountDigits','$paymentFor','$paymentType','$dateIssued','$issuedBy','Paid')";
+    $sql = "INSERT INTO receipt (clientIC, amountTxt, amountDigits, paymentType, paymentFor, issuedAt, issuedBy, status) VALUES ('$ic','$amountTxt','$amountDigits','$paymentFor','$paymentType','$dateIssued','$issuedBy','Paid')";
 
-//     if ($result = mysqli_query($conn, $sql)) {
-//         $alert = "alert-success";
-//         $message = "Receipt successfully saved";
-//     } else {
-//         $alert = "alert-danger";
-//         $message = "Error : " . mysqli_error($conn);
-//     }
-// }
+    if ($result = mysqli_query($conn, $sql)) {
+        $alert = "alert-success";
+        $message = "Receipt successfully saved";
+    } else {
+        $alert = "alert-danger";
+        $message = "Error : " . mysqli_error($conn);
+    }
+}
 ?>
 
 <!DOCTYPE html>

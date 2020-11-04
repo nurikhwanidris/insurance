@@ -16,36 +16,32 @@ $designation = strtolower(mysqli_real_escape_string($conn, $_POST['designation']
 
 
 // Get ID for receipt
-$sql = "SELECT id FROM receipt";
+$sql = "SELECT id FROM receipt ORDER BY id DESC";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_array($result);
 
-if (empty(($row['id']))) {
-    $id = str_pad(1, 4, '0000', STR_PAD_LEFT);
-} else {
-    $id = str_pad($row['id'], 4, '0000', STR_PAD_LEFT);
-}
+$id = str_pad($row['id'] + 1, 4, '00000', STR_PAD_LEFT);
 
 // Save to database
-if (isset($_POST['submit'])) {
-    $ic = mysqli_real_escape_string($conn, $_POST['ic']);
-    $amountTxt = ucwords(mysqli_real_escape_string($conn, $_POST['amountTxt']));
-    $amountDigits = mysqli_real_escape_string($conn, $_POST['amountDigits']);
-    $paymentFor = ucwords(mysqli_real_escape_string($conn, $_POST['paymentFor']));
-    $paymentType = ucwords(mysqli_real_escape_string($conn, $_POST['paymentType']));
-    $dateIssued = mysqli_real_escape_string($conn, $_POST['dateIssued']);
-    $issuedBy = ucwords(mysqli_real_escape_string($conn, $_POST['issuedBy']));
+// if (isset($_POST['submit'])) {
+//     $ic = mysqli_real_escape_string($conn, $_POST['ic']);
+//     $amountTxt = ucwords(mysqli_real_escape_string($conn, $_POST['amountTxt']));
+//     $amountDigits = mysqli_real_escape_string($conn, $_POST['amountDigits']);
+//     $paymentFor = ucwords(mysqli_real_escape_string($conn, $_POST['paymentFor']));
+//     $paymentType = ucwords(mysqli_real_escape_string($conn, $_POST['paymentType']));
+//     $dateIssued = mysqli_real_escape_string($conn, $_POST['dateIssued']);
+//     $issuedBy = ucwords(mysqli_real_escape_string($conn, $_POST['issuedBy']));
 
-    $sql = "INSERT INTO receipt (clientIC, amountTxt, amountDigits, paymentType, paymentFor, issuedAt, issuedBy, status) VALUES ('$ic','$amountTxt','$amountDigits','$paymentFor','$paymentType','$dateIssued','$issuedBy','Paid')";
+//     $sql = "INSERT INTO receipt (clientIC, amountTxt, amountDigits, paymentType, paymentFor, issuedAt, issuedBy, status) VALUES ('$ic','$amountTxt','$amountDigits','$paymentFor','$paymentType','$dateIssued','$issuedBy','Paid')";
 
-    if ($result = mysqli_query($conn, $sql)) {
-        $alert = "alert-success";
-        $message = "Receipt successfully saved";
-    } else {
-        $alert = "alert-danger";
-        $message = "Error : " . mysqli_error($conn);
-    }
-}
+//     if ($result = mysqli_query($conn, $sql)) {
+//         $alert = "alert-success";
+//         $message = "Receipt successfully saved";
+//     } else {
+//         $alert = "alert-danger";
+//         $message = "Error : " . mysqli_error($conn);
+//     }
+// }
 ?>
 
 <!DOCTYPE html>
@@ -98,6 +94,11 @@ if (isset($_POST['submit'])) {
                                 </div>
                                 <p class="border-bottom">Payment by : <b><?= $paymentType; ?></b></p>
                                 <p class="border-bottom">Being Payment of : <b><?= ucwords($paymentFor); ?></b></p>
+                                <div class="row px-3">
+                                    <div class="col-md-12 p-0">
+                                        <p><small>N.B : Validity of this receipt subject to clearing cheque.</small><br><small>This is computer generated receipt. It does not require any signature.</small></p>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-md-4 mx-auto">
                                 <div class="row">
@@ -110,17 +111,17 @@ if (isset($_POST['submit'])) {
                                     <p class="m-0"><small>53100 Kuala Lumpur</small></p>
                                 </div>
                                 <div class="row">
-                                    <p>
-                                        <small class="border-bottom">Date : <b><?= $dateIssued; ?></b></small><br>
-                                        <small class="border-bottom">Issued By : <b><?= ucwords($issuedBy); ?></b></small><br>
-                                        <small class="border-bottom">Designation : <b><?= ucwords($designation); ?></small></b>
-                                    </p>
+                                    <div class="col p-0">
+                                        <p class="">
+                                            <small class="border-bottom">Date : <b><?= $dateIssued; ?></b></small><br>
+                                            <small class="border-bottom">Issued By : <b><?= ucwords($issuedBy); ?></b></small><br>
+                                            <small class="border-bottom">Designation : <b><?= ucwords($designation); ?></small></b>
+                                        </p>
+                                    </div>
+                                    <div class="col p-0">
+                                        <img src="img/chop.png" alt="" class="img" style="height: 80px; width:auto;">
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row px-3">
-                            <div class="col-md-12">
-                                <p><small>N.B : Validity of this receipt subject to clearing cheque.</small><br><small>This is computer generated receipt. It does not require any signature.</small></p>
                             </div>
                         </div>
                     </div>

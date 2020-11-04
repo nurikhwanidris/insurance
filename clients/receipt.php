@@ -4,6 +4,7 @@
 include('../core/dbconn.php');
 
 // Get data from POST.
+$ic = mysqli_real_escape_string($conn, $_POST['ic']);
 $name = strtolower(mysqli_real_escape_string($conn, $_POST['name']));
 $amountTxt = strtolower(mysqli_real_escape_string($conn, $_POST['amountTxt']));
 $amountDigits = mysqli_real_escape_string($conn, $_POST['amountDigits']);
@@ -94,6 +95,11 @@ $designation = strtolower(mysqli_real_escape_string($conn, $_POST['designation']
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row my-4 d-print-none">
+            <button class="btn btn-sm btn-default" onclick="window.print();"><i class="fas fa-print"></i> Print</button>
+            <a href="view?ic=<?= $ic; ?>" class="btn btn-sm btn-warning"><i class="far fa-edit"></i> Edit</a>
+            <a href="index" class="btn btn-sm btn-primary">Back</a>
         </div>
     </div>
 </body>

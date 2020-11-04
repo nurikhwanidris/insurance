@@ -15,6 +15,37 @@ $issuedBy = strtolower(mysqli_real_escape_string($conn, $_POST['issuedBy']));
 $designation = strtolower(mysqli_real_escape_string($conn, $_POST['designation']));
 
 
+// Get ID for receipt
+$sql = "SELECT id FROM receipt";
+$result = mysqli_query($conn, $sql);
+$row = mysqli_fetch_array($result);
+
+if (empty(($row['id']))) {
+    $id = str_pad(1, 4, '0000', STR_PAD_LEFT);
+} else {
+    $id = str_pad($row['id'], 4, '0000', STR_PAD_LEFT);
+}
+
+// Save to database
+if (isset($_POST['submit'])) {
+    $ic = mysqli_real_escape_string($conn, $_POST['ic']);
+    $amountTxt = ucwords(mysqli_real_escape_string($conn, $_POST['amountTxt']));
+    $amountDigits = mysqli_real_escape_string($conn, $_POST['amountDigits']);
+    $paymentFor = ucwords(mysqli_real_escape_string($conn, $_POST['paymentFor']));
+    $paymentType = ucwords(mysqli_real_escape_string($conn, $_POST['paymentType']));
+    $dateIssued = mysqli_real_escape_string($conn, $_POST['dateIssued']);
+    $issuedBy = ucwords(mysqli_real_escape_string($conn, $_POST['issuedBy']));
+
+    $sql = "INSERT INTO receipt (clientIC, amountTxt, amountDigits, paymentType, paymentFor, issuedAt, issuedBy, status) VALUES ('$ic','$amountTxt','$amountDigits','$paymentFor','$paymentType','$dateIssued','$issuedBy','Paid')";
+
+    if ($result = mysqli_query($conn, $sql)) {
+        $alert = "alert-success";
+        $message = "Receipt successfully saved";
+    } else {
+        $alert = "alert-danger";
+        $message = "Error : " . mysqli_error($conn);
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -70,7 +101,7 @@ $designation = strtolower(mysqli_real_escape_string($conn, $_POST['designation']
                             </div>
                             <div class="col-md-4 mx-auto">
                                 <div class="row">
-                                    <p class="m-0">Receipt No : <b> ET2020000101</b></p>
+                                    <p class="m-0">Receipt No : <b> ET<?= date('Ym') . '-' . $id; ?></b></p>
                                     <p class="m-0"><small>CO. REG. 1074485-W KPL/LN: 7644 | MA4686</small></p>
                                     <p class="m-0"><small>GST001952911360 | MOF : K22173423761661323</small></p>
                                     <p class="m-0"><small>No. 243 B, Tingkat 2,</small></p>
@@ -96,7 +127,14 @@ $designation = strtolower(mysqli_real_escape_string($conn, $_POST['designation']
                 </div>
             </div>
         </div>
-        <div class="row my-4 d-print-none">
+        <?php if (isset($_POST['submit'])) { ?>
+            <div class="row my-4 print-none">
+                <div class="alert <?= $alert; ?> mx-auto" role="alert">
+                    <?= $message; ?>
+                </div>
+            </div>
+        <?php } ?>
+        <div class="row my-4 d-print-none mx-auto">
             <button class="btn btn-sm btn-default" onclick="window.print();"><i class="fas fa-print"></i> Print</button>
             <a href="view?ic=<?= $ic; ?>" class="btn btn-sm btn-warning"><i class="far fa-edit"></i> Edit</a>
             <a href="index" class="btn btn-sm btn-primary">Back</a>

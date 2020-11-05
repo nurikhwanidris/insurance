@@ -17,6 +17,9 @@ if (isset($_POST['submit'])) {
     $nomineeName = mysqli_escape_string($conn, $_POST['nomineeName']);
     $nomineeIC = mysqli_escape_string($conn, $_POST['nomineeIC']);
     $nomineeRelationship = mysqli_escape_string($conn, $_POST['nomineeRelationship']);
+    $hotelList = mysqli_real_escape_string($conn, $_POST['hotelList']);
+    $hotelDate = mysqli_real_escape_string($conn, $_POST['hotelDate']);
+    $hotelStay = mysqli_real_escape_string($conn, $_POST['hotelStay']);
 
     // Default timezone
     date_default_timezone_set("Asia/Kuala_Lumpur");
@@ -27,8 +30,10 @@ if (isset($_POST['submit'])) {
     $resultSql = mysqli_query($conn, $sql);
     if (mysqli_num_rows($resultSql) < 1) {
         // Query the data
-        $query = "INSERT INTO insurance 
-    (name, ic, email, phone, occupation, age, street1, street2, postcode, state, nomineeName, nomineeIC, nomineeRelationship, createdAt) VALUES ('$name', '$ic', '$email', '$phone', '$occupation', '$age', '$street1','$street2', '$postcode', '$state', '$nomineeName', '$nomineeIC', '$nomineeRelationship', '$dateTime')";
+        $query = "INSERT INTO insurance (name, ic, email, phone, occupation, age, street1, street2, postcode, state, nomineeName, nomineeIC, nomineeRelationship, hotelList, hotelStay, hotelDate, createdAt) 
+        VALUES
+        ('$name', '$ic', '$email', '$phone', '$occupation', '$age', '$street1','$street2', '$postcode', '$state', '$nomineeName', '$nomineeIC', '$nomineeRelationship', '$hotelList','$hotelStay','$hotelDate', '$dateTime')";
+
         // Result
         if ($result = mysqli_query($conn, $query)) {
             $alert = "alert-success";
@@ -36,12 +41,12 @@ if (isset($_POST['submit'])) {
 
             // Send email to customer and company
             $to = $email;
-            $subject = "Covid-19 Vital Cover Insurance Plan - " . $name;
+            $subject = "Group Personal Accident Special Insurance Plan + 1 Night Hotel - " . $name;
             $text =
                 "<html>
 
         <head>
-            <title>Covid-19 Vital Cover Insurance Plan</title>
+            <title>Group Personal Accident Special Insurance Plan + 1 Night Hotel</title>
         </head>
 
         <body>
@@ -114,6 +119,21 @@ if (isset($_POST['submit'])) {
                     <td>:</td>
                     <td>" . $nomineeRelationship . "</td>
                 </tr>
+                <tr>
+                    <th style='text-align:left;'>Hotel Name</th>
+                    <td>:</td>
+                    <td>" . $hotelList . "</td>
+                </tr>
+                <tr>
+                    <th style='text-align:left;'>Date Check-in</th>
+                    <td>:</td>
+                    <td>" . $hotelDate . "</td>
+                </tr>
+                <tr>
+                    <th style='text-align:left;'>Extra Stay</th>
+                    <td>:</td>
+                    <td>" . $hotelStay . "</td>
+                </tr>
             </table><br>
             <p>Please make sure all the details are correct. If you found any error(s), do notify us.</p>
         </body>
@@ -149,7 +169,7 @@ if (isset($_POST['submit'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Covid-19 Vital Cover Insurance Plan</title>
+    <title>Group Personal Accident Special Insurance Plan + 1 Night Hotel</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <!-- Google Fonts -->
@@ -185,7 +205,7 @@ if (isset($_POST['submit'])) {
             <div class="col-md-8 mx-auto">
                 <div class="card my-4">
                     <div class="card-header text-center">
-                        Covid-19 Vital Cover Insurance Plan
+                        Group Personal Accident Special Insurance Plan + 1 Night Hotel Stay
                     </div>
                     <div class="card-body">
                         <form action="<?php $_SERVER['PHP_SELF']; ?>" class="md-form form-sm " method="POST">
@@ -292,8 +312,8 @@ if (isset($_POST['submit'])) {
                             <div class="col row">
                                 <div class="col-md-6 mb-0">
                                     <div class="md-form">
-                                        <input type="text" name="nomineeName" id="name" class="form-control" required>
-                                        <label for="name">Nominee Name</label>
+                                        <input type="text" name="nomineeName" id="nomineeName" class="form-control" required>
+                                        <label for="nomineeName">Nominee's Name</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-0">
@@ -311,9 +331,48 @@ if (isset($_POST['submit'])) {
                                     </div>
                                 </div>
                             </div>
+                            <div class="clear-fix m-4">
+
+                            </div>
+                            <div class="col-md-12">
+                                <p class="lead">Hotel Stays</p>
+                            </div>
+                            <div class="col row">
+                                <div class="col-md-6 mb-0">
+                                    <div class="md-form">
+                                        <select name="hotelList" id="" class="md-form form-control">
+                                            <option value="Not Decided">Not Decided</option>
+                                            <option value="Bukit Merah Laketown Resort & Hotel - Perak">Bukit Merah Laketown Resort & Hotel - Perak</option>
+                                            <option value=The Shores Hotel & Residence - Melaka"">The Shores Hotel & Residence - Melaka</option>
+                                            <option value="The Pines - Melaka">The Pines - Melaka</option>
+                                            <option value="Zetter Suites Cameron Highland - Pahang">Zetter Suites Cameron Highland - Pahang</option>
+                                            <option value="Flamingo Beach - Penang">Flamingo Beach - Penang</option>
+                                            <option value="Hotel Tanjung Vista - Terengganu">Hotel Tanjung Vista - Terengganu</option>
+                                            <option value="Ridel Hotel Kota Bahru - Kelantan">Ridel Hotel Kota Bahru - Kelantan</option>
+                                            <option value="M-Boutique - Perak">M-Boutique - Perak</option>
+                                            <option value="Cititel Express Ipoh - Perak">Cititel Express Ipoh - Perak</option>
+                                            <option value="Cititel Express Kota Kinabalu - Sabah">Cititel Express Kota Kinabalu - Sabah</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-0">
+                                    <div class="md-form">
+                                        <input type="date" name="hotelDate" id="" class="form-control">
+                                        <label for="">Select a suitable date</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col row">
+                                <div class="col-md-6 mb-0">
+                                    <div class="md-form">
+                                        <input type="number" name="hotelStay" id="" class="form-control" placeholder="0">
+                                        <label for="">Additional Stay/Day</label>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-12">
                                 <hr>
-                                <p class="text-center"><small>Total is <b>RM200</b></small></p>
+                                <p class="text-center"><small>Total is <b>RM470</b></small></p>
                                 <hr><br>
                                 <div class="row mb-2">
                                     <p>Payment can be made to <br> <b>ENRICH TRAVELOGUE SDN BHD</b> <br> <b>5648 1050

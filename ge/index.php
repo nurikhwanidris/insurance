@@ -22,19 +22,25 @@ if (isset($_POST['submit'])) {
     date_default_timezone_set("Asia/Kuala_Lumpur");
     $dateTime = date("Y-m-d H:i:s");
 
-    // Query the data
-    $query = "INSERT INTO insurance 
-    (name, ic, email, phone, occupation, age, street1, street2, postcode, state, nomineeName, nomineeIC, nomineeRelationship, createdAt) VALUES ('$name', '$ic', '$email', '$phone', '$occupation', '$age', '$street1','$street2', '$postcode', '$state', '$nomineeName', '$nomineeIC', '$nomineeRelationship', '$dateTime')";
-    // Result
-    if ($result = mysqli_query($conn, $query)) {
-        $alert = "alert-success";
-        $message = "<strong>Successful!</strong> An email will be sent to you short after this. <hr> Please check your spam box if you didn't see anything inside your main inbox.";
+    // Check for existing IC
+    $sql = "SELECT ic FROM insurance WHERE ic = '$ic'";
+    $resultSql = mysqli_query($conn, $sql);
+    if (mysqli_num_rows($resultSql) < 1) {
+        // Query the data
+        $query = "INSERT INTO insurance (name, ic, email, phone, occupation, age, street1, street2, postcode, state, nomineeName, nomineeIC, nomineeRelationship, createdAt) 
+        VALUES
+        ('$name', '$ic', '$email', '$phone', '$occupation', '$age', '$street1','$street2', '$postcode', '$state', '$nomineeName', '$nomineeIC', '$nomineeRelationship', '$dateTime')";
 
-        // Send email to customer and company
-        $to = $email;
-        $subject = "Covid-19 + Great Ride Shield Special Protection Plan - " . $name;
-        $text =
-            "<html>
+        // Result
+        if ($result = mysqli_query($conn, $query)) {
+            $alert = "alert-success";
+            $message = "<strong>Successful!</strong> An email will be sent to you short after this. <hr> Please check your spam box if you didn't see anything inside your main inbox.";
+
+            // Send email to customer and company
+            $to = $email;
+            $subject = "Covid-19 + Great Ride Shield Special Protection Plan - " . $name;
+            $text =
+                "<html>
 
         <head>
             <title>Covid-19 + Great Ride Shield Special Protection Plan</title>
@@ -117,19 +123,24 @@ if (isset($_POST['submit'])) {
         </html>
         ";
 
-        // Always set content-type when sending HTML email
-        $headers = "MIME-Version: 1.0" . "\r\n";
-        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+            // Always set content-type when sending HTML email
+            $headers = "MIME-Version: 1.0" . "\r\n";
+            $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 
-        // More headers
-        $headers .= 'From: <no-reply@enrichtravel.my>' . "\r\n";
-        $headers .= 'Cc: insurance@enrichtravel.my' . "\r\n";
+            // More headers
+            $headers .= 'From: <no-reply@enrichtravel.my>' . "\r\n";
+            $headers .= 'Cc: insurance@enrichtravel.my' . "\r\n";
 
-        mail($to, $subject, $text, $headers);
+            mail($to, $subject, $text, $headers);
+        } else {
+            $alert = "alert-danger";
+            $message = "<strong>Error!</strong> Something went wrong. We apologise for that.";
+            $message .= " Error! " . mysqli_error($conn);
+        }
     } else {
         $alert = "alert-danger";
-        $message = "<strong>Error!</strong> Something went wrong. We apologise for that.";
-        $message .= " Error! " . mysqli_error($conn);
+        $message = "<strong>Error!</strong> The NRIC <b>" . $ic . " </b>already existed in our database.<hr>";
+        $message .= "Please get in touch with our rep if you haven't filled up any form from us.";
     }
 }
 ?>

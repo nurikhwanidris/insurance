@@ -97,7 +97,7 @@ $row = mysqli_fetch_array($result);
                                     </div>
                                     <div class="col-md-6 mb-0">
                                         <div class="md-form">
-                                            <select name="paymentType" id="paymentType" class="md-form form-control">
+                                            <select name="paymentType" id="paymentType" class="browser-default custom-select">
                                                 <option value="">Select Payment Method</option>
                                                 <option value="Cash">Cash</option>
                                                 <option value="Credit Card">Credit Card</option>
@@ -129,11 +129,21 @@ $row = mysqli_fetch_array($result);
                                             <label for="">Designation</label>
                                         </div>
                                     </div>
+                                    <div class="col-md-6 mb-0">
+                                        <div class="md-form">
+                                            <select name="status" id="" class="browser-default custom-select">
+                                                <option value="">Payment Status</option>
+                                                <option value="1">Fully Paid</option>
+                                                <option value="2">Partially Paid</option>
+                                                <option value="3">Cancelled</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col row mx-auto text-center">
                                     <div class="col-md-12 mx-auto ">
-                                        <button name="submit" type="submit" class="btn btn-success btn-md">Submit</button>
-                                        <button name="reset" type="reset" class="btn btn-danger btn-md">Reset</button>
+                                        <button name="submit" type="submit" class="btn btn-success btn-sm">Submit</button>
+                                        <button name="reset" type="reset" class="btn btn-danger btn-sm">Reset</button>
                                         <a href="home" class="btn btn-sm btn-default">Back</a>
                                     </div>
                                 </div>

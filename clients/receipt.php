@@ -13,6 +13,7 @@ $paymentType = mysqli_real_escape_string($conn, $_POST['paymentType']);
 $dateIssued = mysqli_real_escape_string($conn, $_POST['dateIssued']);
 $issuedBy = strtolower(mysqli_real_escape_string($conn, $_POST['issuedBy']));
 $designation = strtolower(mysqli_real_escape_string($conn, $_POST['designation']));
+$status = mysqli_real_escape_string($conn, $_POST['status']);
 
 
 // Get ID for receipt
@@ -32,7 +33,7 @@ if (isset($_POST['submit'])) {
     $dateIssued = mysqli_real_escape_string($conn, $_POST['dateIssued']);
     $issuedBy = ucwords(mysqli_real_escape_string($conn, $_POST['issuedBy']));
 
-    $sql = "INSERT INTO receipt (clientIC, amountTxt, amountDigits, paymentType, paymentFor, issuedAt, issuedBy, status) VALUES ('$ic','$amountTxt','$amountDigits','$paymentFor','$paymentType','$dateIssued','$issuedBy','Paid')";
+    $sql = "INSERT INTO receipt (clientIC, amountTxt, amountDigits, paymentType, paymentFor, issuedAt, issuedBy, status) VALUES ('$ic','$amountTxt','$amountDigits','$paymentFor','$paymentType','$dateIssued','$issuedBy','$status')";
 
     if ($result = mysqli_query($conn, $sql)) {
         $alert = "alert-success";
@@ -102,7 +103,7 @@ if (isset($_POST['submit'])) {
                             </div>
                             <div class="col-md-4 mx-auto">
                                 <div class="row">
-                                    <p class="m-0">Receipt No : <b> ET/INS-<?= date('Ym') . '-' . $id; ?></b></p>
+                                    <p class="m-0">Receipt No : <b> ETINS<?= date('Ym') . '-' . $id; ?></b></p>
                                     <p class="m-0"><small>CO. REG. 1074485-W KPL/LN: 7644 | MA4686</small></p>
                                     <p class="m-0"><small>GST001952911360 | MOF : K22173423761661323</small></p>
                                     <p class="m-0"><small>No. 243 B, Tingkat 2,</small></p>
@@ -138,7 +139,7 @@ if (isset($_POST['submit'])) {
         <div class="row my-4 d-print-none mx-auto">
             <button class="btn btn-sm btn-default" onclick="window.print();"><i class="fas fa-print"></i> Print</button>
             <a href="view?ic=<?= $ic; ?>" class="btn btn-sm btn-warning"><i class="far fa-edit"></i> Edit</a>
-            <a href="index" class="btn btn-sm btn-primary">Back</a>
+            <a href="home" class="btn btn-sm btn-primary">Back</a>
         </div>
     </div>
 </body>

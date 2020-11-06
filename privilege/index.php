@@ -30,9 +30,9 @@ if (isset($_POST['submit'])) {
     $resultSql = mysqli_query($conn, $sql);
     if (mysqli_num_rows($resultSql) < 1) {
         // Query the data
-        $query = "INSERT INTO insurance (name, ic, email, phone, occupation, age, street1, street2, postcode, state, nomineeName, nomineeIC, nomineeRelationship, hotelList, hotelStay, hotelDate, createdAt) 
+        $query = "INSERT INTO insurance (name, ic, email, phone, occupation, age, street1, street2, postcode, state, nomineeName, nomineeIC, nomineeRelationship, hotelList, hotelStay, hotelDate, createdAt, total) 
         VALUES
-        ('$name', '$ic', '$email', '$phone', '$occupation', '$age', '$street1','$street2', '$postcode', '$state', '$nomineeName', '$nomineeIC', '$nomineeRelationship', '$hotelList','$hotelStay','$hotelDate', '$dateTime')";
+        ('$name', '$ic', '$email', '$phone', '$occupation', '$age', '$street1','$street2', '$postcode', '$state', '$nomineeName', '$nomineeIC', '$nomineeRelationship', '$hotelList','$hotelStay','$hotelDate', '$dateTime','497')";
 
         // Result
         if ($result = mysqli_query($conn, $query)) {
@@ -372,7 +372,7 @@ if (isset($_POST['submit'])) {
                             </div>
                             <div class="col-12">
                                 <hr>
-                                <p class="text-center"><small>Total is <b>RM470</b></small></p>
+                                <p class="text-center"><small>Total is <b>RM497</b></small></p>
                                 <hr><br>
                                 <div class="row mb-2">
                                     <p>Payment can be made to <br> <b>ENRICH TRAVELOGUE SDN BHD</b> <br> <b>5648 1050

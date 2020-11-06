@@ -28,7 +28,7 @@ if (isset($_POST['submit'])) {
     if (mysqli_num_rows($resultSql) < 1) {
         // Query the data
         $query = "INSERT INTO insurance 
-    (name, ic, email, phone, occupation, age, street1, street2, postcode, state, nomineeName, nomineeIC, nomineeRelationship, createdAt) VALUES ('$name', '$ic', '$email', '$phone', '$occupation', '$age', '$street1','$street2', '$postcode', '$state', '$nomineeName', '$nomineeIC', '$nomineeRelationship', '$dateTime')";
+    (name, ic, email, phone, occupation, age, street1, street2, postcode, state, nomineeName, nomineeIC, nomineeRelationship, createdAt, total) VALUES ('$name', '$ic', '$email', '$phone', '$occupation', '$age', '$street1','$street2', '$postcode', '$state', '$nomineeName', '$nomineeIC', '$nomineeRelationship', '$dateTime','200')";
         // Result
         if ($result = mysqli_query($conn, $query)) {
             $alert = "alert-success";

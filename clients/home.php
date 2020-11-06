@@ -5,6 +5,11 @@ include('../core/dbconn.php');
 // Get client from database
 $sql = "SELECT * FROM insurance";
 $result = mysqli_query($conn, $sql);
+
+// Get payment status from receipt
+$receipt = "SELECT status FROM receipt";
+$resultReceipt = mysqli_query($conn, $receipt);
+
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +20,7 @@ $result = mysqli_query($conn, $sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Receipt</title>
+    <title>List of Clients</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <!-- Google Fonts -->
@@ -57,21 +62,32 @@ $result = mysqli_query($conn, $sql);
                         <table id="dtBasicExample" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                    <th class="text-center">#
+                                    <th class="text-center">
+                                        #
                                     </th>
-                                    <th class="th-sm">Client's Name
+                                    <th class="th-sm">
+                                        Client's Name
                                     </th>
-                                    <th class="th-sm">NRIC
+                                    <th class="th-sm">
+                                        NRIC
                                     </th>
-                                    <th class="th-sm">Nominee Name
+                                    <th class="th-sm">
+                                        Nominee Name
                                     </th>
-                                    <th class="th-sm">Nominee NRIC
+                                    <th class="th-sm">
+                                        Nominee NRIC
                                     </th>
-                                    <th class="th-sm">Nominee Relationship
+                                    <th class="th-sm">
+                                        Nominee Relationship
                                     </th>
-                                    <th class="th-sm">Inserted At
+                                    <th class="th-sm text-center">
+                                        Total
                                     </th>
-                                    <th class="th-sm text-center">Action
+                                    <th class="th-sm">
+                                        Inserted At
+                                    </th>
+                                    <th class="th-sm text-center">
+                                        Status
                                     </th>
                                 </tr>
                             </thead>
@@ -84,11 +100,28 @@ $result = mysqli_query($conn, $sql);
                                         <td><?= $row['nomineeName']; ?></td>
                                         <td><?= $row['nomineeIC']; ?></td>
                                         <td><?= $row['nomineeRelationship']; ?></td>
+                                        <td class="text-center">
+                                            <?= $row['total']; ?>
+                                        </td>
                                         <td><?= $row['CreatedAt']; ?></td>
                                         <td class="text-center">
-                                            <a href="/insurance/clients/view?ic=<?= $row['ic']; ?>">
-                                                <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i>&nbsp;View</button>
-                                            </a>
+                                            <?php if (empty($row['status'])) { ?>
+                                                <a href="/insurance/clients/create?ic=<?= $row['ic']; ?>&status=pending">
+                                                    <button class="btn btn-sm btn-primary">Create</button>
+                                                </a>
+                                            <?php } elseif ($row['status'] == 2) { ?>
+                                                <a href="/insurance/clients/status?ic=<?= $row['ic']; ?>&status=partial">
+                                                    <button class="btn btn-sm btn-warning">Update</button>
+                                                </a>
+                                            <?php } elseif ($row['status'] == 3) { ?>
+                                                <a href="/insurance/clients/status?ic=<?= $row['ic']; ?>&status=cancelled">
+                                                    <button class="btn btn-sm btn-danger">Cancelled</button>
+                                                </a>
+                                            <?php } elseif ($row['status'] == 1) { ?>
+                                                <a href="/insurance/clients/status?ic=<?= $row['ic']; ?>&status=paid">
+                                                    <button class="btn btn-sm btn-success">Paid</button>
+                                                </a>
+                                            <?php } ?>
                                         </td>
                                     </tr>
                                 <?php endwhile; ?>

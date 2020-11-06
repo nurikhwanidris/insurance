@@ -15,6 +15,11 @@ $issuedBy = strtolower(mysqli_real_escape_string($conn, $_POST['issuedBy']));
 $designation = strtolower(mysqli_real_escape_string($conn, $_POST['designation']));
 $status = mysqli_real_escape_string($conn, $_POST['status']);
 
+// Get status from insurance
+$sqlInsurance = "SELECT status FROM insurance WHERE ic = '$ic'";
+$resultInsurance = mysqli_query($conn, $sqlInsurance);
+$rowInsurance = mysqli_fetch_array($resultInsurance);
+
 
 // Get ID for receipt
 $sql = "SELECT id FROM receipt ORDER BY id DESC";
@@ -32,8 +37,15 @@ if (isset($_POST['submit'])) {
     $paymentType = ucwords(mysqli_real_escape_string($conn, $_POST['paymentType']));
     $dateIssued = mysqli_real_escape_string($conn, $_POST['dateIssued']);
     $issuedBy = ucwords(mysqli_real_escape_string($conn, $_POST['issuedBy']));
+    $status = mysqli_real_escape_string($conn, $_POST['status']);
+    $serial = 'ETINS' . date('y') . $id;
 
-    $sql = "INSERT INTO receipt (clientIC, amountTxt, amountDigits, paymentType, paymentFor, issuedAt, issuedBy, status) VALUES ('$ic','$amountTxt','$amountDigits','$paymentFor','$paymentType','$dateIssued','$issuedBy','$status')";
+    //Insert into receipt
+    $sql = "INSERT INTO receipt (clientIC, amountTxt, amountDigits, paymentType, paymentFor, issuedAt, issuedBy, receiptSerial) VALUES ('$ic','$amountTxt','$amountDigits','$paymentFor','$paymentType','$dateIssued','$issuedBy', '$serial')";
+
+    // Update status
+    $sqlStatus = "UPDATE insurance SET status = '$status', balance = '$balance' WHERE ic = '$ic'";
+    $resultStatus = mysqli_query($conn, $sqlStatus);
 
     if ($result = mysqli_query($conn, $sql)) {
         $alert = "alert-success";
@@ -103,7 +115,7 @@ if (isset($_POST['submit'])) {
                             </div>
                             <div class="col-md-4 mx-auto">
                                 <div class="row">
-                                    <p class="m-0">Receipt No : <b> ETINS<?= date('Ym') . '-' . $id; ?></b></p>
+                                    <p class="m-0">Receipt No : <b> ETINS<?= date('Y') . '-' . $id; ?></b></p>
                                     <p class="m-0"><small>CO. REG. 1074485-W KPL/LN: 7644 | MA4686</small></p>
                                     <p class="m-0"><small>GST001952911360 | MOF : K22173423761661323</small></p>
                                     <p class="m-0"><small>No. 243 B, Tingkat 2,</small></p>

@@ -7,6 +7,7 @@ include('../core/dbconn.php');
 $sql = "SELECT * FROM insurance WHERE ic = '" . $_GET['ic'] . "'";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_array($result);
+
 ?>
 
 <!DOCTYPE html>

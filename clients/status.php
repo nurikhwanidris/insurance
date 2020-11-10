@@ -6,8 +6,14 @@ $ic = mysqli_real_escape_string($conn, $_GET['ic']);
 $status = mysqli_real_escape_string($conn, $_GET['status']);
 
 // From database
-$sql = "SELECT insurance.name AS name, insurance.status AS status, insurance.ic AS clientIC, receipt.receiptSerial AS serial, insurance.total AS total, receipt.amountDigits AS paid, receipt.issuedAt AS issuedAt, receipt.issuedBy AS issuedBy FROM insurance LEFT JOIN receipt ON insurance.ic = receipt.clientIC WHERE receipt.clientIC = '$ic'";
+$sql = "SELECT insurance.name AS name, insurance.status AS status, insurance.ic AS clientIC, receipt.receiptSerial AS serial, insurance.total AS total, insurance.balance AS balance, receipt.issuedAt AS issuedAt, receipt.issuedBy AS issuedBy FROM insurance LEFT JOIN receipt ON insurance.ic = receipt.clientIC WHERE receipt.clientIC = '$ic'";
 $result = mysqli_query($conn, $sql);
+
+// Database Receipt
+$sqlReceipt = "SELECT * FROM receipt WHERE clientIC = '$ic'";
+$resultReceipt = mysqli_query($conn, $sqlReceipt);
+$rowReceipt = mysqli_fetch_array($resultReceipt);
+
 ?>
 
 
@@ -19,7 +25,7 @@ $result = mysqli_query($conn, $sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List of Clients</title>
+    <title>List of Receipts</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <!-- Google Fonts -->
@@ -45,9 +51,9 @@ $result = mysqli_query($conn, $sql);
 </head>
 
 <body>
-    <div class="contianer">
+    <div class="container">
         <div class="row">
-            <div class="col-md-8 mx-auto">
+            <div class="col-md-12 mx-auto">
                 <div class="card my-4">
                     <div class="card-header text-center">
                         Receipt List
@@ -62,6 +68,7 @@ $result = mysqli_query($conn, $sql);
                                         <th class="th-sm text-center">Issued At</th>
                                         <th class="th-sm text-center">Issued By</th>
                                         <th class="th-sm text-center">Total</th>
+                                        <th class="th-sm text-center">Paid Amount</th>
                                         <th class="th-sm text-center">Balance</th>
                                         <th class="th-sm text-center">Status</th>
                                     </tr>
@@ -75,7 +82,8 @@ $result = mysqli_query($conn, $sql);
                                             <td class="text-center"><?= $row['issuedAt']; ?></td>
                                             <td class="text-center"><?= $row['issuedBy']; ?></td>
                                             <td class="text-center">RM<?= $row['total'] ?></td>
-                                            <td class="text-center">RM<?= $row['total'] - $row['paid']; ?></td>
+                                            <td class="text-center">RM<?= $rowReceipt['amountDigits']; ?></td>
+                                            <td class="text-center">RM<?= $row['balance']; ?></td>
                                             <td class="text-center">
                                                 <?php if ($row['status'] == 1) : ?>
                                                     <span class="badge badge-success">Fully Paid</span>

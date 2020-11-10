@@ -83,6 +83,9 @@ $resultReceipt = mysqli_query($conn, $receipt);
                                     <th class="th-sm text-center">
                                         Total
                                     </th>
+                                    <th class="th-sm text-center">
+                                        Balance Left
+                                    </th>
                                     <th class="th-sm">
                                         Inserted At
                                     </th>
@@ -102,6 +105,9 @@ $resultReceipt = mysqli_query($conn, $receipt);
                                         <td><?= $row['nomineeRelationship']; ?></td>
                                         <td class="text-center">
                                             <?= $row['total']; ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <?= $row['balance']; ?>
                                         </td>
                                         <td><?= $row['CreatedAt']; ?></td>
                                         <td class="text-center">
@@ -136,7 +142,11 @@ $resultReceipt = mysqli_query($conn, $receipt);
 </body>
 <script>
     $(document).ready(function() {
-        $('#dtBasicExample').DataTable();
+        $('#dtBasicExample').DataTable({
+            "order": [
+                [0, "desc"]
+            ]
+        });
         $('.dataTables_length').addClass('bs-select');
     });
 </script>

@@ -64,13 +64,13 @@ $row = mysqli_fetch_array($result);
                                 <div class="col row">
                                     <div class="col-md-6 mb-0">
                                         <div class="md-form">
-                                            <input type="text" name="name" id="name" class="form-control" value="<?= $row['name']; ?>" required>
+                                            <input type="text" name="name" id="name" class="form-control" value="<?= $row['name']; ?>" readonly>
                                             <label for="name">Client's Name</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-0">
                                         <div class="md-form">
-                                            <input type="text" name="ic" id="ic" class="form-control" value="<?= $row['ic']; ?>" required>
+                                            <input type="text" name="ic" id="ic" class="form-control" value="<?= $row['ic']; ?>" readonly>
                                             <label for="ic">NRIC Number without '-'</label>
                                         </div>
                                     </div>

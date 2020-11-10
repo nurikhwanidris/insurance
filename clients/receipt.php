@@ -16,7 +16,7 @@ $designation = strtolower(mysqli_real_escape_string($conn, $_POST['designation']
 $status = mysqli_real_escape_string($conn, $_POST['status']);
 
 // Get status from insurance
-$sqlInsurance = "SELECT status FROM insurance WHERE ic = '$ic'";
+$sqlInsurance = "SELECT * FROM insurance WHERE ic = '$ic'";
 $resultInsurance = mysqli_query($conn, $sqlInsurance);
 $rowInsurance = mysqli_fetch_array($resultInsurance);
 
@@ -39,6 +39,13 @@ if (isset($_POST['submit'])) {
     $issuedBy = ucwords(mysqli_real_escape_string($conn, $_POST['issuedBy']));
     $status = mysqli_real_escape_string($conn, $_POST['status']);
     $serial = 'ETINS' . date('y') . $id;
+
+    // Calculate balance
+    if (empty($rowInsurance['balance'])) {
+        $balance = $rowInsurance['total'] - $amountDigits;
+    } else {
+        $balance = $rowInsurance['balance'] - $amountDigits;
+    }
 
     //Insert into receipt
     $sql = "INSERT INTO receipt (clientIC, amountTxt, amountDigits, paymentType, paymentFor, issuedAt, issuedBy, receiptSerial) VALUES ('$ic','$amountTxt','$amountDigits','$paymentFor','$paymentType','$dateIssued','$issuedBy', '$serial')";

@@ -46,7 +46,7 @@ $resultReceipt = mysqli_query($conn, $receipt);
 </head>
 
 <body>
-    <div class="container">
+    <div class="container-fluid">
         <!-- Message / Alert -->
         <div class="row">
 
@@ -66,28 +66,28 @@ $resultReceipt = mysqli_query($conn, $receipt);
                                         #
                                     </th>
                                     <th class="th-sm">
-                                        Client's Name
+                                        Client
                                     </th>
                                     <th class="th-sm">
                                         NRIC
                                     </th>
                                     <th class="th-sm">
-                                        Nominee Name
+                                        Nominee
                                     </th>
                                     <th class="th-sm">
                                         Nominee NRIC
                                     </th>
                                     <th class="th-sm">
-                                        Nominee Relationship
+                                        Relationship
                                     </th>
                                     <th class="th-sm text-center">
-                                        Total
+                                        Type
                                     </th>
                                     <th class="th-sm text-center">
-                                        Balance Left
+                                        Balance
                                     </th>
                                     <th class="th-sm">
-                                        Inserted At
+                                        Inserted
                                     </th>
                                     <th class="th-sm text-center">
                                         Status
@@ -97,27 +97,27 @@ $resultReceipt = mysqli_query($conn, $receipt);
                             <tbody>
                                 <?php while ($row = mysqli_fetch_array($result)) : ?>
                                     <tr>
-                                        <td class="text-center"><?= $row['id']; ?></td>
-                                        <td><?= $row['name']; ?></td>
-                                        <td><?= $row['ic']; ?></td>
-                                        <td><?= $row['nomineeName']; ?></td>
-                                        <td><?= $row['nomineeIC']; ?></td>
-                                        <td><?= $row['nomineeRelationship']; ?></td>
-                                        <td class="text-center">
+                                        <td class="text-center align-middle"><?= $row['id']; ?></td>
+                                        <td class="align-middle"><?= $row['name']; ?></td>
+                                        <td class="align-middle"><?= $row['ic']; ?></td>
+                                        <td class="align-middle"><?= $row['nomineeName']; ?></td>
+                                        <td class="align-middle"><?= $row['nomineeIC']; ?></td>
+                                        <td class="align-middle"><?= $row['nomineeRelationship']; ?></td>
+                                        <td class="text-center align-middle">
                                             <?= $row['total']; ?>
                                         </td>
-                                        <td class="text-center">
+                                        <td class="text-center align-middle">
                                             <?= $row['balance']; ?>
                                         </td>
-                                        <td><?= $row['CreatedAt']; ?></td>
-                                        <td class="text-center">
+                                        <td class="align-middle"><?= $row['CreatedAt']; ?></td>
+                                        <td class="text-center align-middle">
                                             <?php if (empty($row['status'])) { ?>
                                                 <a href="/insurance/clients/create?ic=<?= $row['ic']; ?>&status=pending">
-                                                    <button class="btn btn-sm btn-primary">Create</button>
+                                                    <button class="btn btn-sm btn-primary"><i class="fas fa-plus"></i>&nbsp;Create</button>
                                                 </a>
                                             <?php } elseif ($row['status'] == 2) { ?>
                                                 <a href="/insurance/clients/status?ic=<?= $row['ic']; ?>&status=partial">
-                                                    <button class="btn btn-sm btn-warning">Update</button>
+                                                    <button class="btn btn-sm btn-warning"><i class="fas fa-hourglass-half"></i>&nbsp;Update</button>
                                                 </a>
                                             <?php } elseif ($row['status'] == 3) { ?>
                                                 <a href="/insurance/clients/status?ic=<?= $row['ic']; ?>&status=cancelled">
@@ -125,7 +125,7 @@ $resultReceipt = mysqli_query($conn, $receipt);
                                                 </a>
                                             <?php } elseif ($row['status'] == 1) { ?>
                                                 <a href="/insurance/clients/status?ic=<?= $row['ic']; ?>&status=paid">
-                                                    <button class="btn btn-sm btn-success">Paid</button>
+                                                    <button class="btn btn-sm btn-success"><i class="fas fa-check"></i>&nbsp;Paid</button>
                                                 </a>
                                             <?php } ?>
                                         </td>

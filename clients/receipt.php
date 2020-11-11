@@ -10,7 +10,6 @@ $amountTxt = strtolower(mysqli_real_escape_string($conn, $_POST['amountTxt']));
 $amountDigits = mysqli_real_escape_string($conn, $_POST['amountDigits']);
 $paymentFor = strtolower(mysqli_real_escape_string($conn, $_POST['paymentFor']));
 $paymentType = mysqli_real_escape_string($conn, $_POST['paymentType']);
-$dateIssued = mysqli_real_escape_string($conn, $_POST['dateIssued']);
 $issuedBy = strtolower(mysqli_real_escape_string($conn, $_POST['issuedBy']));
 $designation = strtolower(mysqli_real_escape_string($conn, $_POST['designation']));
 $status = mysqli_real_escape_string($conn, $_POST['status']);
@@ -20,6 +19,8 @@ $sqlInsurance = "SELECT * FROM insurance WHERE ic = '$ic'";
 $resultInsurance = mysqli_query($conn, $sqlInsurance);
 $rowInsurance = mysqli_fetch_array($resultInsurance);
 
+// Default timezone
+date_default_timezone_set("Asia/Kuala_Lumpur");
 
 // Get ID for receipt
 $sql = "SELECT id FROM receipt ORDER BY id DESC";
@@ -35,7 +36,7 @@ if (isset($_POST['submit'])) {
     $amountDigits = mysqli_real_escape_string($conn, $_POST['amountDigits']);
     $paymentFor = ucwords(mysqli_real_escape_string($conn, $_POST['paymentFor']));
     $paymentType = ucwords(mysqli_real_escape_string($conn, $_POST['paymentType']));
-    $dateIssued = mysqli_real_escape_string($conn, $_POST['dateIssued']);
+    $date = date("Y-m-d");
     $issuedBy = ucwords(mysqli_real_escape_string($conn, $_POST['issuedBy']));
     $status = mysqli_real_escape_string($conn, $_POST['status']);
     $serial = 'ETINS' . date('y') . $id;
@@ -48,7 +49,7 @@ if (isset($_POST['submit'])) {
     }
 
     //Insert into receipt
-    $sql = "INSERT INTO receipt (clientIC, amountTxt, amountDigits, paymentType, paymentFor, issuedAt, issuedBy, receiptSerial) VALUES ('$ic','$amountTxt','$amountDigits','$paymentFor','$paymentType','$dateIssued','$issuedBy', '$serial')";
+    $sql = "INSERT INTO receipt (clientIC, amountTxt, amountDigits, paymentType, paymentFor, issuedAt, issuedBy, receiptSerial) VALUES ('$ic','$amountTxt','$amountDigits','$paymentFor','$paymentType','$date','$issuedBy', '$serial')";
 
     // Update status
     $sqlStatus = "UPDATE insurance SET status = '$status', balance = '$balance' WHERE ic = '$ic'";
@@ -133,7 +134,7 @@ if (isset($_POST['submit'])) {
                                 <div class="row">
                                     <div class="col p-0">
                                         <p class="">
-                                            <small class="border-bottom">Date : <b><?= $dateIssued; ?></b></small><br>
+                                            <small class="border-bottom">Date : <b><?= $date; ?></b></small><br>
                                             <small class="border-bottom">Issued By : <b><?= ucwords($issuedBy); ?></b></small><br>
                                             <small class="border-bottom">Designation : <b><?= ucwords($designation); ?></small></b>
                                         </p>

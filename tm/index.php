@@ -28,7 +28,7 @@ if (isset($_POST['submit'])) {
     if (mysqli_num_rows($resultSql) < 1) {
         // Query the data
         $query = "INSERT INTO insurance 
-    (name, ic, email, phone, occupation, age, street1, street2, postcode, state, nomineeName, nomineeIC, nomineeRelationship, createdAt, bala) VALUES ('$name', '$ic', '$email', '$phone', '$occupation', '$age', '$street1','$street2', '$postcode', '$state', '$nomineeName', '$nomineeIC', '$nomineeRelationship', '$dateTime','200')";
+    (name, ic, email, phone, occupation, age, street1, street2, postcode, state, nomineeName, nomineeIC, nomineeRelationship, createdAt, total, balance) VALUES ('$name', '$ic', '$email', '$phone', '$occupation', '$age', '$street1','$street2', '$postcode', '$state', '$nomineeName', '$nomineeIC', '$nomineeRelationship', '$dateTime', 200, 200)";
         // Result
         if ($result = mysqli_query($conn, $query)) {
             $alert = "alert-success";
@@ -133,6 +133,7 @@ if (isset($_POST['submit'])) {
         } else {
             $alert = "alert-danger";
             $message = "<strong>Error!</strong> Something went wrong. We apologise for that.";
+            // Disable this later
             $message .= " Error! " . mysqli_error($conn);
         }
     } else {
@@ -313,7 +314,7 @@ if (isset($_POST['submit'])) {
                             </div>
                             <div class="col-12">
                                 <hr>
-                                <p class="text-center"><small>bala is <b>RM200</b></small></p>
+                                <p class="text-center"><small>Balance is <b>RM200</b></small></p>
                                 <hr><br>
                                 <div class="row mb-2">
                                     <p>Payment can be made to <br> <b>ENRICH TRAVELOGUE SDN BHD</b> <br> <b>5648 1050

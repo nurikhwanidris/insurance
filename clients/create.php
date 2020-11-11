@@ -112,24 +112,18 @@ $row = mysqli_fetch_array($result);
                                 <div class="col row">
                                     <div class="col-md-6 mb-0">
                                         <div class="md-form">
-                                            <input type="text" name="dateIssued" id="" class="form-control">
-                                            <label for="">dd/mm/yyyy</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-0">
-                                        <div class="md-form">
                                             <input type="text" name="issuedBy" id="" class="form-control">
                                             <label for="">Issued By</label>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col row">
                                     <div class="col-md-6 mb-0">
                                         <div class="md-form">
                                             <input type="text" name="designation" id="" class="form-control">
                                             <label for="">Designation</label>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="col row">
                                     <div class="col-md-6 mb-0">
                                         <div class="md-form">
                                             <select name="status" id="" class="browser-default custom-select">

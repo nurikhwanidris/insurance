@@ -100,7 +100,13 @@ $rowReceipt = mysqli_fetch_array($resultReceipt);
                         </div>
                         <div class="row">
                             <a href="home" class="btn btn-sm btn-default">Back</a>
-                            <a href="create?ic=<?= $ic; ?>" class="btn btn-sm btn-primary">Add</a>
+                            <?php if ($_GET['status'] == 'paid') { ?>
+                                <div class="clear-fix">
+
+                                </div>
+                            <?php } else { ?>
+                                <a href="create?ic=<?= $ic; ?>" class="btn btn-sm btn-primary">Add</a>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>

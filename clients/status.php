@@ -14,6 +14,10 @@ $sqlReceipt = "SELECT * FROM receipt WHERE clientIC = '$ic'";
 $resultReceipt = mysqli_query($conn, $sqlReceipt);
 $rowReceipt = mysqli_fetch_array($resultReceipt);
 
+// Change date format
+$originalDate = $rowReceipt['issuedAt'];
+$newDate = date("d-m-Y", strtotime($originalDate));
+
 ?>
 
 
@@ -63,7 +67,6 @@ $rowReceipt = mysqli_fetch_array($resultReceipt);
                             <table class="table table-stripped table-bordered">
                                 <thead>
                                     <tr>
-                                        <th class="th-sm text-center">#</th>
                                         <th class="th-sm text-center">Receipt No</th>
                                         <th class="th-sm text-center">Issued At</th>
                                         <th class="th-sm text-center">Issued By</th>
@@ -77,9 +80,12 @@ $rowReceipt = mysqli_fetch_array($resultReceipt);
                                     <?php $i = 1;
                                     while ($row = mysqli_fetch_assoc($result)) : ?>
                                         <tr>
-                                            <td class="text-center"><?= $i++; ?></td>
-                                            <td class="text-center"><?= $row['serial']; ?></td>
-                                            <td class="text-center"><?= $row['issuedAt']; ?></td>
+                                            <td class="text-center">
+                                                <a href="view-receipt?receipt=<?= $row['serial']; ?>">
+                                                    <i class="far fa-eye">&nbsp;</i><?= $row['serial']; ?>
+                                                </a>
+                                            </td>
+                                            <td class="text-center"><?= $newDate; ?></td>
                                             <td class="text-center"><?= $row['issuedBy']; ?></td>
                                             <td class="text-center">RM<?= $row['total'] ?></td>
                                             <td class="text-center">RM<?= $rowReceipt['amountDigits']; ?></td>
@@ -100,13 +106,9 @@ $rowReceipt = mysqli_fetch_array($resultReceipt);
                         </div>
                         <div class="row">
                             <a href="home" class="btn btn-sm btn-default">Back</a>
-                            <?php if ($_GET['status'] == 'paid') { ?>
-                                <div class="clear-fix">
-
-                                </div>
-                            <?php } else { ?>
+                            <?php if ($row['status'] != 0) : ?>
                                 <a href="create?ic=<?= $ic; ?>" class="btn btn-sm btn-primary">Add</a>
-                            <?php } ?>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>

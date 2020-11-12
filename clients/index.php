@@ -111,23 +111,23 @@ $resultReceipt = mysqli_query($conn, $receipt);
                                         </td>
                                         <td class="align-middle"><?= $row['CreatedAt']; ?></td>
                                         <td class="text-center align-middle">
-                                            <?php if (empty($row['status'])) { ?>
-                                                <a href="/insurance/clients/create?ic=<?= $row['ic']; ?>&status=pending">
-                                                    <button class="btn btn-sm btn-primary"><i class="fas fa-plus"></i>&nbsp;Create</button>
+                                            <?php if (empty($row['status'])) : ?>
+                                                <a href="/insurance/clients/create?ic=<?= $row['ic']; ?>&status=pending" class="btn btn-sm btn-primary">
+                                                    <i class="fas fa-plus"></i>&nbsp;Create
                                                 </a>
-                                            <?php } elseif ($row['status'] == 2) { ?>
-                                                <a href="/insurance/clients/status?ic=<?= $row['ic']; ?>&status=partial">
-                                                    <button class="btn btn-sm btn-warning"><i class="fas fa-hourglass-half"></i>&nbsp;Update</button>
+                                            <?php elseif ($row['balance'] == 0) : ?>
+                                                <a href="/insurance/clients/status?ic=<?= $row['ic']; ?>&status=paid" class="btn btn-sm btn-success">
+                                                    <i class="fas fa-check"></i>&nbsp;Paid
                                                 </a>
-                                            <?php } elseif ($row['status'] == 3) { ?>
-                                                <a href="/insurance/clients/status?ic=<?= $row['ic']; ?>&status=cancelled">
-                                                    <button class="btn btn-sm btn-danger">Cancelled</button>
+                                            <?php elseif ($row['status'] == 3) : ?>
+                                                <a href="/insurance/clients/status?ic=<?= $row['ic']; ?>&status=cancelled" class="btn btn-sm btn-danger">
+                                                    Cancelled
                                                 </a>
-                                            <?php } elseif ($row['status'] == 1) { ?>
-                                                <a href="/insurance/clients/status?ic=<?= $row['ic']; ?>&status=paid">
-                                                    <button class="btn btn-sm btn-success"><i class="fas fa-check"></i>&nbsp;Paid</button>
+                                            <?php elseif ($row['status'] == 2) : ?>
+                                                <a href="/insurance/clients/status?ic=<?= $row['ic']; ?>&status=partial" class="btn btn-sm btn-warning">
+                                                    <i class="fas fa-hourglass-half"></i>&nbsp;Update
                                                 </a>
-                                            <?php } ?>
+                                            <?php endif; ?>
                                         </td>
                                     </tr>
                                 <?php endwhile; ?>

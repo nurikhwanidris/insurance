@@ -91,7 +91,7 @@ $newDate = date("d-m-Y", strtotime($originalDate));
                                             <td class="text-center">RM<?= $rowReceipt['amountDigits']; ?></td>
                                             <td class="text-center">RM<?= $row['balance']; ?></td>
                                             <td class="text-center">
-                                                <?php if ($row['status'] == 1) : ?>
+                                                <?php if ($row['balance'] == 0) : ?>
                                                     <span class="badge badge-success">Fully Paid</span>
                                                 <?php elseif ($row['status'] == 2) : ?>
                                                     <span class="badge badge-warning">Partially Paid</span>
@@ -105,10 +105,8 @@ $newDate = date("d-m-Y", strtotime($originalDate));
                             </table>
                         </div>
                         <div class="row">
-                            <a href="home" class="btn btn-sm btn-default">Back</a>
-                            <?php if ($row['status'] != 0) : ?>
-                                <a href="create?ic=<?= $ic; ?>" class="btn btn-sm btn-primary">Add</a>
-                            <?php endif; ?>
+                            <a href="create?ic=<?= $ic; ?>" class="btn btn-sm btn-primary">Add</a>
+                            <a href="index" class="btn btn-sm btn-default">Back</a>
                         </div>
                     </div>
                 </div>

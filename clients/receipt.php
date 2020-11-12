@@ -49,7 +49,7 @@ if (isset($_POST['submit'])) {
     }
 
     //Insert into receipt
-    $sql = "INSERT INTO receipt (clientIC, amountTxt, amountDigits, paymentType, paymentFor, issuedAt, issuedBy, receiptSerial) VALUES ('$ic','$amountTxt','$amountDigits','$paymentFor','$paymentType','$date','$issuedBy', '$serial')";
+    $sql = "INSERT INTO receipt (clientIC, amountTxt, amountDigits, paymentType, paymentFor, issuedAt, issuedBy, receiptSerial) VALUES ('$ic','$amountTxt','$amountDigits','$paymentType','$paymentFor','$date','$issuedBy', '$serial')";
 
     // Update status
     $sqlStatus = "UPDATE insurance SET status = '$status', balance = '$balance' WHERE ic = '$ic'";
@@ -159,7 +159,7 @@ if (isset($_POST['submit'])) {
         <div class="row my-4 d-print-none mx-auto">
             <button class="btn btn-sm btn-default" onclick="window.print();"><i class="fas fa-print"></i> Print</button>
             <a href="view?ic=<?= $ic; ?>" class="btn btn-sm btn-warning"><i class="far fa-edit"></i> Edit</a>
-            <a href="home" class="btn btn-sm btn-primary">Back</a>
+            <a href="index" class="btn btn-sm btn-primary">Back</a>
         </div>
     </div>
 </body>

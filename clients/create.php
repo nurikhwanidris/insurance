@@ -139,7 +139,7 @@ $row = mysqli_fetch_array($result);
                                     <div class="col-md-12 mx-auto ">
                                         <button name="submit" type="submit" class="btn btn-success btn-sm">Submit</button>
                                         <button name="reset" type="reset" class="btn btn-danger btn-sm">Reset</button>
-                                        <a href="home" class="btn btn-sm btn-default">Back</a>
+                                        <a href="index" class="btn btn-sm btn-default">Back</a>
                                     </div>
                                 </div>
                             </form>

@@ -96,13 +96,18 @@ $resultReceipt = mysqli_query($conn, $receipt);
                             </thead>
                             <tbody>
                                 <?php while ($row = mysqli_fetch_array($result)) : ?>
+                                    <?php
+                                    $name = strtolower($row['name']);
+                                    $nomineeName = strtolower($row['nomineeName']);
+                                    $nomineeRelationship = strtolower($row['nomineeRelationship']);
+                                    ?>
                                     <tr>
                                         <td class="text-center align-middle"><?= $row['id']; ?></td>
-                                        <td class="align-middle"><?= $row['name']; ?></td>
+                                        <td class="align-middle"><?= ucwords($name); ?></td>
                                         <td class="align-middle"><?= $row['ic']; ?></td>
-                                        <td class="align-middle"><?= $row['nomineeName']; ?></td>
+                                        <td class="align-middle"><?= ucwords($nomineeName); ?></td>
                                         <td class="align-middle"><?= $row['nomineeIC']; ?></td>
-                                        <td class="align-middle"><?= $row['nomineeRelationship']; ?></td>
+                                        <td class="align-middle"><?= ucwords($nomineeRelationship); ?></td>
                                         <td class="text-center align-middle">
                                             <?= $row['total']; ?>
                                         </td>

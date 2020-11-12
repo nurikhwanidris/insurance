@@ -68,25 +68,25 @@ $resultReceipt = mysqli_query($conn, $receipt);
                                     <th class="th-sm">
                                         Client
                                     </th>
-                                    <th class="th-sm">
+                                    <th class="th-sm text-center">
                                         NRIC
                                     </th>
                                     <th class="th-sm">
                                         Nominee
                                     </th>
-                                    <th class="th-sm">
+                                    <th class="th-sm text-center">
                                         Nominee NRIC
                                     </th>
-                                    <th class="th-sm">
+                                    <th class="th-sm text-center">
                                         Relationship
                                     </th>
                                     <th class="th-sm text-center">
-                                        Type
+                                        Insurance Type
                                     </th>
-                                    <th class="th-sm text-center">
+                                    <th class="th-sm text-center text-center">
                                         Balance
                                     </th>
-                                    <th class="th-sm">
+                                    <th class="th-sm text-center">
                                         Inserted
                                     </th>
                                     <th class="th-sm text-center">
@@ -104,17 +104,25 @@ $resultReceipt = mysqli_query($conn, $receipt);
                                     <tr>
                                         <td class="text-center align-middle"><?= $row['id']; ?></td>
                                         <td class="align-middle"><?= ucwords($name); ?></td>
-                                        <td class="align-middle"><?= $row['ic']; ?></td>
+                                        <td class="align-middle text-center"><?= $row['ic']; ?></td>
                                         <td class="align-middle"><?= ucwords($nomineeName); ?></td>
-                                        <td class="align-middle"><?= $row['nomineeIC']; ?></td>
-                                        <td class="align-middle"><?= ucwords($nomineeRelationship); ?></td>
+                                        <td class="align-middle text-center"><?= $row['nomineeIC']; ?></td>
+                                        <td class="align-middle text-center"><?= ucwords($nomineeRelationship); ?></td>
                                         <td class="text-center align-middle">
-                                            <?= $row['total']; ?>
+                                            <?php if ($row['total'] == 200) : ?>
+                                                TM - Vital Cover
+                                            <?php elseif ($row['total'] == 150) : ?>
+                                                GE - Great Ride Shield
+                                            <?php elseif ($row['total'] == 397) : ?>
+                                                TM - Group Personal Accident
+                                            <?php elseif ($row['total'] == 497) : ?>
+                                                TM - Group Personal Accident + Hotel
+                                            <?php endif; ?>
                                         </td>
                                         <td class="text-center align-middle">
                                             <?= $row['balance']; ?>
                                         </td>
-                                        <td class="align-middle"><?= $row['CreatedAt']; ?></td>
+                                        <td class="align-middle text-center"><?= $row['CreatedAt']; ?></td>
                                         <td class="text-center align-middle">
                                             <?php if (empty($row['status'])) : ?>
                                                 <a href="/insurance/clients/create?ic=<?= $row['ic']; ?>&status=pending" class="btn btn-sm btn-primary">
